@@ -1,4 +1,5 @@
 package org.example.Model;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Student {
     private final List<Topic> topics;
 
 
-    public Student(String name, String ulearnId, String group){
+    public Student(String name, String ulearnId, String group) {
         this.ulearnID = ulearnId;
         this.name = name;
         this.group = group;
@@ -43,5 +44,19 @@ public class Student {
 
     public void addTopic(Topic topic) {
         this.topics.add(topic);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Студент: ").append(name).append("\n")
+                .append("UlearnID: ").append(ulearnID).append("\n")
+                .append("Группа: ").append(group).append("\n");
+        sb.append("Посещаемость пока отсутствует\n");
+        sb.append("Темы:\n");
+        for (Topic topic : topics) {
+            sb.append("\t").append(topic.toString()).append("\n");
+        }
+        return sb.toString();
     }
 }
