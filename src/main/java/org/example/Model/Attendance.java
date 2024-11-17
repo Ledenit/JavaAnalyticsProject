@@ -12,7 +12,14 @@ public class Attendance {
     public int getClasses() {
         return classes;
     }
+
     public int getAttendedClasses() {
         return attendedClasses;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Посещаемость: ").append(attendedClasses).append("/").append(classes);
+        return sb.toString();
     }
 }

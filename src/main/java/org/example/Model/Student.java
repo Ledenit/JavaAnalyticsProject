@@ -52,7 +52,7 @@ public class Student {
         sb.append("Студент: ").append(name).append("\n")
                 .append("UlearnID: ").append(ulearnID).append("\n")
                 .append("Группа: ").append(group).append("\n");
-        sb.append("Посещаемость пока отсутствует\n");
+        sb.append(attendance.toString()).append("\n");
         sb.append("Темы:\n");
         for (Topic topic : topics) {
             sb.append("\t").append(topic.toString()).append("\n");

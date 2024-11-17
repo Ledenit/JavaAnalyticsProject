@@ -4,6 +4,7 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import org.example.Model.Attendance;
 import org.example.Model.Student;
 import org.example.Model.Topic;
 
@@ -18,10 +19,31 @@ public class CSVParser {
     public static String Quiz;
     public static String Exercise;
 
-    public static List<Student> CSVToStudents(String filePath) throws IOException, CsvException {
+    public static Map<String, int[]> parseAttendance(String attendance) throws IOException, CsvException {
+        Map<String, int[]> attendances = new HashMap<>();
+
+        try (CSVReader reader = new CSVReaderBuilder(new FileReader(attendance))
+                .withCSVParser(new CSVParserBuilder().withSeparator(';').build())
+                .build()) {
+            reader.readNext();
+            reader.readNext();
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                String studentName = line[1].trim();
+                int attendedClasses = Integer.parseInt(line[7].trim());
+                int classes = Integer.parseInt(line[8].trim());
+                attendances.put(studentName, new int[]{classes, attendedClasses});
+            }
+        }
+
+        return attendances;
+    }
+
+    public static List<Student> CSVToStudents(String filePath, String attendance) throws IOException, CsvException {
         List<Student> students = new ArrayList<>();
         List<String> topicNames = new ArrayList<>();
         List<Integer> topicInd = new ArrayList<>();
+        Map<String, int[]> attendances = parseAttendance(attendance);
         Map<String, List<Integer>> topicTask = new HashMap<>();
         Map<Integer, Integer> taskMaxScore = new HashMap<>();
 
@@ -69,7 +91,7 @@ public class CSVParser {
 
             String[] line;
             while ((line = reader.readNext()) != null) {
-                students.add(createStudent(line, topicNames, tasks, taskMaxScore, topicTask));
+                students.add(createStudent(line, topicNames, tasks, taskMaxScore, topicTask, attendances));
             }
         }
 
@@ -77,14 +99,19 @@ public class CSVParser {
     }
 
     private static Student createStudent(String[] studentInfo, List<String> topicNames, String[] tasks,
-                                         Map<Integer, Integer> taskMaxScore,
-                                         Map<String, List<Integer>> topicTask) {
+                                         Map<Integer, Integer> taskMaxScore, Map<String, List<Integer>> topicTask,
+                                         Map<String, int[]> attendances) {
 
         String name = studentInfo[0];
         String ulearnID = studentInfo[1];
         String group = studentInfo[2];
 
         Student student = new Student(name, ulearnID, group);
+
+        if (attendances.containsKey(name)) {
+            int[] attendanceData = attendances.get(name);
+            student.setAttendance(new Attendance(attendanceData[0], attendanceData[1]));
+        }
 
         for (String topicName : topicNames) {
             int[] scores = new int[3];
@@ -136,9 +163,10 @@ public class CSVParser {
 
     public static void main(String[] args) {
         String filePath = "Data/java-rtf.csv";
+        String attendance = "Data/attendance.csv";
         try {
             System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-            List<Student> students = CSVToStudents(filePath);
+            List<Student> students = CSVToStudents(filePath, attendance);
             for (Student student : students) {
                 System.out.println(student.toString());
             }
