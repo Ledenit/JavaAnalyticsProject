@@ -160,18 +160,4 @@ public class CSVParser {
 
         return student;
     }
-
-    public static void main(String[] args) {
-        String filePath = "Data/java-rtf.csv";
-        String attendance = "Data/attendance.csv";
-        try {
-            System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-            List<Student> students = CSVToStudents(filePath, attendance);
-            for (Student student : students) {
-                System.out.println(student.toString());
-            }
-        } catch (IOException | CsvException e) {
-            System.out.println("Ошибка при чтении CSV: " + e.getMessage());
-        }
-    }
 }
