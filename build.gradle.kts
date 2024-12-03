@@ -24,6 +24,8 @@ dependencies {
     implementation("commons-io:commons-io:2.17.0")
     implementation("com.google.code.gson:gson:2.11.0")
     implementation("io.github.cdimascio:dotenv-java:3.0.0")
+    implementation("org.xerial:sqlite-jdbc:3.47.1.0")
+    implementation("com.j256.ormlite:ormlite-jdbc:6.1")
 }
 
 tasks.test {
