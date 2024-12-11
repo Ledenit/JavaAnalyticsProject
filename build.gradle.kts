@@ -26,6 +26,7 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-java:3.0.0")
     implementation("org.xerial:sqlite-jdbc:3.47.1.0")
     implementation("com.j256.ormlite:ormlite-jdbc:6.1")
+    implementation("jfree:jfreechart:1.0.13")
 }
 
 tasks.test {

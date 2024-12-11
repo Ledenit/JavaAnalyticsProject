@@ -57,7 +57,7 @@ public class Topic {
         return homeworkPoints;
     }
 
-    public int getcontrolQuestionsPoints() {
+    public int getControlQuestionsPoints() {
         return controlQuestionsPoints;
     }
 
