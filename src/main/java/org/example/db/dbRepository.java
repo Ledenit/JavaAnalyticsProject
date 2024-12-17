@@ -57,6 +57,14 @@ public class dbRepository {
         return studentDao.queryForAll();
     }
 
+    public List<Topic> getTopicsByStudent(String studentId) throws SQLException {
+        return topicDao.queryBuilder().where().eq("student_ulearnID", studentId).query();
+    }
+
+    public List<Attendance> getAttendancesByStudent(String studentId) throws SQLException {
+        return attendanceDao.queryBuilder().where().eq("student_ulearnID", studentId).query();
+    }
+
     public void close() throws Exception {
         connectionSource.close();
     }
