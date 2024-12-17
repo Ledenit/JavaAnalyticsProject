@@ -1,7 +1,6 @@
 package chartCreator;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -27,6 +26,19 @@ public class StudentsToChart {
                 "Посещаемость: " + studentName,
                 "",
                 "Количество",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+    }
+
+    public JFreeChart createScatterPlot(String studentName, XYSeriesCollection dataset) {
+        return ChartFactory.createScatterPlot(
+                "Влияние посещаемости на баллы: " + studentName,
+                "Посещаемость (в процентах)",
+                "Баллы",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true,
