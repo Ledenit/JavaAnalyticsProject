@@ -1,4 +1,5 @@
 Модели и структура 
+
 ![img.png](img.png)
 Парсинг и работа с VK api
 ![image](https://github.com/user-attachments/assets/bdd3e66b-2036-41ef-82a3-36ab65b1092c)
